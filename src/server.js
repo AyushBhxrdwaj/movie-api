@@ -3,11 +3,18 @@ import express from "express";
 import { connectDB, disconnectDB } from "./config/db.js";
 //import routes
 import movieRoutes from "./routes/movieRoutes.js";
+import authRoutes from "./routes/authRoutes.js"
+
 connectDB();
+
+
 const app = express();
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 
 //api routes
-app.use("/movies", movieRoutes); //localhost:5000/movies/hello
+app.use("/movies", movieRoutes); //localhost:5000/movies/
+app.use("/auth",authRoutes)
 
 const PORT = 5001;
 const server = app.listen(PORT, () => {
