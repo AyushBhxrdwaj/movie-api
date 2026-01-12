@@ -1,23 +1,22 @@
+import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
-import {Pool} from 'pg';
+import { Pool } from "pg";
 
 const pool = new Pool({
-    connectionString:process.env.DATABASE_URL,
-})
-const adapter=new PrismaPg(pool)
+  connectionString: process.env.DATABASE_URL,
+});
+const adapter = new PrismaPg(pool);
 
-const prisma = new PrismaClient(
-    {
-        adapter,
-        log:
-        process.env.NODE_ENV === "development"
-          ? ["query", "error", "warn"]
-          : ["error"],
-    }
-)
+const prisma = new PrismaClient({
+  adapter,
+  log:
+    process.env.NODE_ENV === "development"
+      ? ["query", "error", "warn"]
+      : ["error"],
+});
 
-const userId = "25e06a03-b50b-4942-99e9-9672b92ef9cc"
+const userId = "f566dc58-4892-4d2a-9e9e-03ec4a13491e";
 
 const movies = [
   {
@@ -116,20 +115,22 @@ const movies = [
   },
 ];
 
-const main = async ()=>{
-    console.log("Seeding Movies...")
-    for(const movie of movies){
-        await prisma.movies.create({
-            data:movie
-        });
-        console.log("Created Movie ",movie.title)
-    }
-    console.log("Seeding Completed")
-}
+const main = async () => {
+  console.log("Seeding Movies...");
+  for (const movie of movies) {
+    await prisma.movies.create({
+      data: movie,
+    });
+    console.log("Created Movie ", movie.title);
+  }
+  console.log("Seeding Completed");
+};
 
-main().catch((err)=>{
-    console.error(err)
-    process.exit(1)
-}).finally(async ()=>{
-    await prisma.$disconnect()
-})
+main()
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
