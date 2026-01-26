@@ -16,7 +16,7 @@ const prisma = new PrismaClient({
       : ["error"],
 });
 
-const userId = "f566dc58-4892-4d2a-9e9e-03ec4a13491e";
+const userId = "c2461210-382e-4822-9181-ac29690279ec";
 
 const movies = [
   {
