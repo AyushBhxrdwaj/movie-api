@@ -7,7 +7,7 @@ export const validateRequest = (schema)=>{
             
             console.log(flaterrors)
 
-            return res.status(400).json({message:error});
+            return res.status(400).json({message:flaterrors.join(", ")});
         }
         next()
     }
